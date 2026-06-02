@@ -1,17 +1,135 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import FeaturedCard from "../components/FeaturedCard.astro";
+import config from "../../config.json";
+import posts from "../../posts/index.json";
 
+const sorted = [...posts].sort(
+  (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+);
+
+const [featured, ...rest] = sorted;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title={config.site.name} description={config.site.description}>
+  <section class="masthead">
+    <div class="masthead-inner">
+      <p class="masthead-kicker">AI-Powered Insights</p>
+      <h1 class="masthead-title">{config.site.name}</h1>
+      <p class="masthead-sub">{config.site.description}</p>
+    </div>
+  </section>
+
+  <div class="page-body">
+    {sorted.length === 0 ? (
+      <p class="empty">No posts yet — check back soon.</p>
+    ) : (
+      <>
+        {featured && (
+          <section class="featured-section">
+            <FeaturedCard post={featured} />
+          </section>
+        )}
+
+        {rest.length > 0 && (
+          <section class="posts-section">
+            <h2 class="section-label">Latest Posts</h2>
+            <div class="post-grid">
+              {rest.map((post) => (
+                <PostCard
+                  id={post.id}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  created_at={post.created_at}
+                  tags={post.tags}
+                  hero_image={post.hero_image}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+      </>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .masthead {
+    background: linear-gradient(140deg, var(--color-hero-from), var(--color-hero-to));
+    color: #fff;
+    padding: 4.5rem 1.5rem 4rem;
+    text-align: center;
+  }
+
+  .masthead-inner {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .masthead-kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 0 0 1rem;
+  }
+
+  .masthead-title {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .masthead-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .page-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .featured-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
+  }
+
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    padding: 5rem 0;
+  }
+</style>

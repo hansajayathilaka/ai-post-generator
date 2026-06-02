@@ -12,21 +12,21 @@ Use `/next-task` slash command to get guided to the next step.
 - [x] P1-01: `git init` + `.gitignore`
 - [x] P1-02: `npm create astro@latest . -- --template minimal --typescript strict --no-git`
 - [x] P1-03: `npm install @astrojs/mdx` + configure `astro.config.mjs`
-- [ ] P1-04: `src/layouts/BaseLayout.astro` — HTML shell, accepts `title` prop, imports global.css
-- [ ] P1-05: `src/layouts/PostLayout.astro` — hero image, title/date/author header, `<slot />`
-- [ ] P1-06: `src/components/PostCard.astro` — card with title, excerpt, date, tags, link
-- [ ] P1-07: `src/components/TagBadge.astro` — styled tag pill
-- [ ] P1-08: `src/components/Header.astro` + `src/components/Footer.astro`
-- [ ] P1-09: `src/styles/global.css` — CSS custom properties for design.color_palette, typography
-- [ ] P1-10: `src/pages/index.astro` — import posts/index.json, sort by date, render PostCards
-- [ ] P1-11: `src/pages/posts/[id].astro` — getStaticPaths from index.json, fs.readFileSync post.md + meta.json
-- [ ] P1-12: `posts/index.json` — initial empty array `[]`
-- [ ] P1-13: Sample post: `posts/2026-06-02-hello-world/` with meta.json, post.md, assets/
-- [ ] P1-14: Add sample post entry to `posts/index.json`
-- [ ] P1-15: `config.json` — initial values (site name, niche, color palette, etc.)
-- [ ] P1-16: `public/favicon.svg`
-- [ ] P1-17: `.github/workflows/deploy.yml` — build + deploy to GitHub Pages on push to main
-- [ ] P1-18: Smoke test: `npm run build` passes, `npm run preview` shows posts
+- [x] P1-04: `src/layouts/BaseLayout.astro` — HTML shell, accepts `title` prop, imports global.css
+- [x] P1-05: `src/layouts/PostLayout.astro` — hero image, title/date/author header, `<slot />`
+- [x] P1-06: `src/components/PostCard.astro` — card with title, excerpt, date, tags, link
+- [x] P1-07: `src/components/TagBadge.astro` — styled tag pill
+- [x] P1-08: `src/components/Header.astro` + `src/components/Footer.astro`
+- [x] P1-09: `src/styles/global.css` — CSS custom properties for design.color_palette, typography
+- [x] P1-10: `src/pages/index.astro` — import posts/index.json, sort by date, render PostCards
+- [x] P1-11: `src/pages/posts/[id].astro` — getStaticPaths from index.json, fs.readFileSync post.md + meta.json
+- [x] P1-12: `posts/index.json` — initial empty array `[]`
+- [x] P1-13: Sample post: `posts/2026-06-02-hello-world/` with meta.json, post.md, assets/
+- [x] P1-14: Add sample post entry to `posts/index.json`
+- [x] P1-15: `config.json` — initial values (site name, niche, color palette, etc.)
+- [x] P1-16: `public/favicon.svg`
+- [x] P1-17: `.github/workflows/deploy.yml` — build + deploy to GitHub Pages on push to main
+- [x] P1-18: Smoke test: `npm run build` passes, `npm run preview` shows posts
 
 **Phase 1 complete when:** Site builds cleanly, index page lists posts, clicking a post shows full content.
 

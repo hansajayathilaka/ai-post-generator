@@ -1,0 +1,169 @@
+---
+import TagBadge from "./TagBadge.astro";
+
+interface Props {
+  post: {
+    id: string;
+    title: string;
+    excerpt: string;
+    created_at: string;
+    author: string;
+    tags?: string[];
+    hero_image?: string | null;
+  };
+}
+
+const { post } = Astro.props;
+const { id, title, excerpt, created_at, author, tags = [], hero_image } = post;
+
+const date = new Date(created_at).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const heroSrc = hero_image ? `/posts/${id}/${hero_image}` : null;
+---
+
+<a href={`/posts/${id}`} class="featured">
+  <div class="featured-image">
+    {heroSrc
+      ? <img src={heroSrc} alt={title} />
+      : <div class="featured-placeholder" />
+    }
+  </div>
+  <div class="featured-body">
+    <span class="featured-eyebrow">Featured</span>
+    {tags.length > 0 && (
+      <div class="featured-tags">
+        {tags.map((tag) => <TagBadge tag={tag} />)}
+      </div>
+    )}
+    <h2 class="featured-title">{title}</h2>
+    <p class="featured-excerpt">{excerpt}</p>
+    <div class="featured-meta">
+      <time datetime={created_at}>{date}</time>
+      <span class="dot">·</span>
+      <span>{author}</span>
+    </div>
+    <span class="featured-cta">Read article →</span>
+  </div>
+</a>
+
+<style>
+  .featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-surface);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  .featured:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .featured-image {
+    min-height: 340px;
+    overflow: hidden;
+  }
+
+  .featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .featured:hover .featured-image img {
+    transform: scale(1.04);
+  }
+
+  .featured-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, var(--color-hero-from), var(--color-hero-to));
+  }
+
+  .featured-body {
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .featured-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .featured-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .featured-title {
+    font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin: 0;
+    color: var(--color-text);
+    transition: color 0.15s;
+  }
+
+  .featured:hover .featured-title {
+    color: var(--color-primary);
+  }
+
+  .featured-excerpt {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .featured-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .dot {
+    opacity: 0.35;
+  }
+
+  .featured-cta {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 680px) {
+    .featured {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-image {
+      min-height: 220px;
+    }
+
+    .featured-body {
+      padding: 1.75rem;
+    }
+  }
+</style>

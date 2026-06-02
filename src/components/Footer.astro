@@ -1,0 +1,100 @@
+---
+interface Props {
+  siteName?: string;
+}
+
+const { siteName = "Popular Planet" } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">{siteName}</span>
+      <p class="footer-desc">AI-powered insights on technology, science, and the world around us.</p>
+    </div>
+    <div class="footer-meta">
+      <p class="footer-copy">
+        &copy; {year} {siteName}
+      </p>
+      <p class="footer-built">
+        Built with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>
+        &amp; AI
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    margin-top: 0;
+    background: var(--color-surface);
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+
+  .footer-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    max-width: 280px;
+    line-height: 1.6;
+  }
+
+  .footer-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .footer-copy,
+  .footer-built {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .footer-built a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .footer-built a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 560px) {
+    .footer-inner {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .footer-meta {
+      align-items: flex-start;
+    }
+  }
+</style>

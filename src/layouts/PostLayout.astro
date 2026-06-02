@@ -1,0 +1,256 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import TagBadge from "../components/TagBadge.astro";
+
+interface Props {
+  title: string;
+  created_at: string;
+  author: string;
+  excerpt?: string;
+  tags?: string[];
+  hero_image?: string;
+  postId?: string;
+}
+
+const { title, created_at, author, excerpt = "", tags = [], hero_image, postId } = Astro.props;
+
+const date = new Date(created_at).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const heroSrc = hero_image && postId ? `/posts/${postId}/${hero_image}` : null;
+---
+
+<BaseLayout title={title} description={excerpt}>
+  <div class="post-wrapper">
+    <div class="post-container">
+      <nav class="breadcrumb">
+        <a href="/">← All Posts</a>
+      </nav>
+
+      <article class="post">
+        {heroSrc && (
+          <div class="hero">
+            <img src={heroSrc} alt={title} />
+          </div>
+        )}
+
+        <header class="post-header">
+          {tags.length > 0 && (
+            <div class="tags">
+              {tags.map((tag) => <TagBadge tag={tag} />)}
+            </div>
+          )}
+          <h1>{title}</h1>
+          <div class="post-meta">
+            <time datetime={created_at}>{date}</time>
+            <span class="dot">·</span>
+            <span class="author">{author}</span>
+          </div>
+        </header>
+
+        <div class="post-body">
+          <slot />
+        </div>
+      </article>
+
+      <footer class="post-footer">
+        <a href="/" class="back-link">← Back to all posts</a>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-wrapper {
+    background: var(--color-background);
+    min-height: 60vh;
+    padding: 2rem 1.5rem 5rem;
+  }
+
+  .post-container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb {
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .post {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .hero img {
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-header {
+    padding: 2.5rem 2.5rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 0 0 1rem;
+    color: var(--color-text);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .dot {
+    opacity: 0.35;
+  }
+
+  .post-body {
+    padding: 2.5rem;
+    line-height: 1.85;
+    font-size: 1.05rem;
+  }
+
+  .post-body :global(h2) {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .post-body :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .post-body :global(p) {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body :global(img) {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+  }
+
+  .post-body :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    margin: 1.75rem 0;
+    padding: 0.75rem 1.25rem;
+    background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+  }
+
+  .post-body :global(ul),
+  .post-body :global(ol) {
+    padding-left: 1.5rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body :global(li) {
+    margin-bottom: 0.35rem;
+  }
+
+  .post-body :global(code) {
+    background: var(--color-code-bg);
+    color: var(--color-code-text);
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
+    font-size: 0.875em;
+    font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+  }
+
+  .post-body :global(pre) {
+    background: var(--color-pre-bg);
+    color: var(--color-pre-text);
+    padding: 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 0.9em;
+    margin: 0 0 1.25rem;
+    font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+  }
+
+  .post-body :global(pre code) {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: 1em;
+  }
+
+  .post-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2.5rem 0;
+  }
+
+  .post-footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 600px) {
+    .post-header,
+    .post-body {
+      padding: 1.5rem;
+    }
+  }
+</style>

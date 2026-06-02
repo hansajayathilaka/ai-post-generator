@@ -1,0 +1,122 @@
+---
+import TagBadge from "./TagBadge.astro";
+
+interface Props {
+  id: string;
+  title: string;
+  excerpt: string;
+  created_at: string;
+  tags?: string[];
+  hero_image?: string;
+}
+
+const { id, title, excerpt, created_at, tags = [], hero_image } = Astro.props;
+
+const date = new Date(created_at).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+
+const heroSrc = hero_image ? `/posts/${id}/${hero_image}` : null;
+---
+
+<a href={`/posts/${id}`} class="card">
+  {heroSrc && <img src={heroSrc} alt={title} class="card-hero" />}
+  <div class="card-body">
+    {tags.length > 0 && (
+      <div class="card-tags">
+        {tags.map((tag) => <TagBadge tag={tag} />)}
+      </div>
+    )}
+    <h2 class="card-title">{title}</h2>
+    <p class="card-excerpt">{excerpt}</p>
+    <div class="card-footer">
+      <time datetime={created_at} class="card-date">{date}</time>
+      <span class="card-read">Read →</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    border-color: var(--color-primary);
+  }
+
+  .card-hero {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--color-text);
+    transition: color 0.15s;
+  }
+
+  .card:hover .card-title {
+    color: var(--color-primary);
+  }
+
+  .card-excerpt {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    margin: 0;
+    color: var(--color-text-muted);
+    flex: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .card-date {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
+
+  .card-read {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+</style>

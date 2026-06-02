@@ -1,0 +1,29 @@
+{
+  "site": {
+    "name": "Popular Planet",
+    "description": "AI-powered insights on technology, science, and the world around us.",
+    "author": "AI Author",
+    "url": "https://popular-planet.github.io",
+    "language": "en"
+  },
+  "generation": {
+    "niche": "technology and science",
+    "topic_hints": ["AI", "space", "climate", "biology", "computing"],
+    "tone": "informative and engaging",
+    "post_length_words": 800,
+    "max_images": 3,
+    "search_attempts": 5,
+    "similarity_threshold": 0.85
+  },
+  "design": {
+    "color_palette": {
+      "primary": "#2563eb",
+      "background": "#ffffff",
+      "text": "#1e293b",
+      "accent": "#f59e0b"
+    },
+    "font_family": "system-ui, -apple-system, sans-serif",
+    "default_theme": "ocean",
+    "themes": ["ocean", "forest", "midnight", "rose", "slate"]
+  }
+}

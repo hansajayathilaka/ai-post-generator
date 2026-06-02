@@ -1,0 +1,89 @@
+---
+interface Props {
+  siteName?: string;
+}
+
+const { siteName = "Popular Planet" } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="accent-bar" />
+  <div class="header-inner">
+    <a href="/" class="site-name">
+      <span class="site-name-text">{siteName}</span>
+    </a>
+    <nav class="nav">
+      <a href="/" class:list={["nav-link", { active: pathname === "/" }]}>Home</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .accent-bar {
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-name {
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .site-name:hover {
+    opacity: 0.75;
+  }
+
+  .site-name-text {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--color-primary);
+  }
+
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    opacity: 0.55;
+    transition: opacity 0.15s, color 0.15s;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-link:hover {
+    opacity: 1;
+    color: var(--color-text);
+  }
+
+  .nav-link.active {
+    opacity: 1;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+</style>
