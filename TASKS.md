@@ -36,15 +36,15 @@ Use `/next-task` slash command to get guided to the next step.
 
 > Goal: Nightly GitHub Action generates a post, opens PR. Merging PR triggers deploy.
 
-- [ ] P2-01: `scripts/requirements.txt` — anthropic, google-generativeai, tavily-python, requests, Pillow, python-slugify
-- [ ] P2-02: `scripts/ai_client.py` — unified provider abstraction (Claude or Gemini based on env vars)
-- [ ] P2-03: `scripts/search_topic.py` — Tavily topic search + duplicate check with difflib, `TopicExhaustedError`
-- [ ] P2-04: `scripts/research_topic.py` — multi-source Tavily research, returns combined_text + sources
-- [ ] P2-05: `scripts/write_post.py` — AI content generation, returns markdown_body + metadata JSON
-- [ ] P2-06: `scripts/download_images.py` — Tavily image search, download + resize with Pillow
-- [ ] P2-07: `scripts/update_index.py` — append to posts/index.json, sort by date, write back
-- [ ] P2-08: `scripts/generate_post.py` — main orchestrator, writes $GITHUB_ENV vars
-- [ ] P2-09: `.github/workflows/generate-post.yml` — nightly cron + workflow_dispatch, opens PR
+- [x] P2-01: `scripts/requirements.txt` — anthropic, google-generativeai, tavily-python, requests, Pillow, python-slugify
+- [x] P2-02: `scripts/ai_client.py` — unified provider abstraction (Claude or Gemini based on env vars)
+- [x] P2-03: `scripts/search_topic.py` — Tavily topic search + duplicate check with difflib, `TopicExhaustedError`
+- [x] P2-04: `scripts/research_topic.py` — multi-source Tavily research, returns combined_text + sources
+- [x] P2-05: `scripts/write_post.py` — AI content generation, returns markdown_body + metadata JSON
+- [x] P2-06: `scripts/download_images.py` — Tavily image search, download + resize with Pillow
+- [x] P2-07: `scripts/update_index.py` — append to posts/index.json, sort by date, write back
+- [x] P2-08: `scripts/generate_post.py` — main orchestrator, writes $GITHUB_ENV vars
+- [x] P2-09: `.github/workflows/generate-post.yml` — nightly cron + workflow_dispatch, opens PR
 - [ ] P2-10: Local end-to-end test with real API keys
 - [ ] P2-11: Add GitHub Secrets: `ANTHROPIC_API_KEY` and/or `GEMINI_API_KEY`, `TAVILY_API_KEY`
 - [ ] P2-12: Trigger `workflow_dispatch` → verify PR opens with new post

@@ -1,0 +1,6 @@
+anthropic
+google-generativeai
+tavily-python
+requests
+Pillow
+python-slugify
