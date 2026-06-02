@@ -1,16 +1,28 @@
 {
   "site": {
-    "name": "Popular Planet",
-    "description": "AI-powered insights on technology, science, and the world around us.",
-    "author": "AI Author",
-    "url": "https://popular-planet.github.io",
+    "name": "AI Dev Digest",
+    "description": "The latest AI tools, frameworks, and techniques for developers.",
+    "author": "AI Dev Digest",
+    "url": "https://aidevdigest.github.io",
     "language": "en"
   },
   "generation": {
-    "niche": "technology and science",
-    "topic_hints": ["AI", "space", "climate", "biology", "computing"],
-    "tone": "informative and engaging",
-    "post_length_words": 800,
+    "niche": "AI-assisted software development tools and frameworks",
+    "topic_hints": [
+      "LLMs for coding",
+      "AI coding assistants",
+      "agentic workflows",
+      "MCP servers",
+      "RAG pipelines",
+      "vector databases",
+      "prompt engineering",
+      "fine-tuning techniques",
+      "AI code review",
+      "AI harness",
+      "developer productivity with AI"
+    ],
+    "tone": "technical and concise, written for software developers",
+    "post_length_words": 700,
     "max_images": 3,
     "search_attempts": 5,
     "similarity_threshold": 0.85

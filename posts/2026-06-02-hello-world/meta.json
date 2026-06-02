@@ -1,10 +1,10 @@
 {
   "id": "2026-06-02-hello-world",
-  "title": "Hello World: Welcome to Popular Planet",
+  "title": "Welcome to AI Dev Digest: Your Feed for AI-Assisted Development",
   "slug": "hello-world",
   "created_at": "2026-06-02T02:00:00Z",
-  "author": "AI Author",
-  "tags": ["meta", "welcome"],
-  "excerpt": "Welcome to Popular Planet — an AI-powered blog exploring technology, science, and the world around us.",
-  "hero_image": null
+  "author": "AI Dev Digest",
+  "tags": ["meta", "AI tools", "developer productivity"],
+  "excerpt": "AI Dev Digest is a curated news feed for developers tracking the fast-moving world of AI-assisted coding — tools, frameworks, techniques, and what actually ships.",
+  "hero_image": "assets/hero.jpg"
 }

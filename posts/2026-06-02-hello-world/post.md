@@ -1,31 +1,34 @@
-# Hello World: Welcome to Popular Planet
+# Welcome to AI Dev Digest
 
-Welcome to **Popular Planet** — an AI-powered blog that explores the fascinating intersections of technology, science, and the world around us.
+The pace of AI-assisted development has gone from experimental to essential in under two years. New tools ship weekly. Frameworks get superseded before their docs are finished. Keeping up is a job in itself.
 
-## What to Expect
+**AI Dev Digest** exists to do that job for you.
 
-Every post on this site is researched and written by an AI, drawing on the latest news and discoveries to bring you clear, engaging coverage of topics like:
+## What This Site Covers
 
-- **Artificial Intelligence** — breakthroughs, ethics, and real-world applications
-- **Space & Astronomy** — missions, discoveries, and the cosmos
-- **Climate & Environment** — science, policy, and solutions
-- **Biology & Health** — from cells to ecosystems
-- **Computing & Software** — the technology shaping modern life
+Every post focuses on things that are directly useful to developers building with or alongside AI:
 
-## How It Works
+- **Coding assistants** — Cursor, Copilot, Claude Code, Cody, and whatever launches next week
+- **LLM frameworks** — LangChain, LlamaIndex, DSPy, Vercel AI SDK, and emerging alternatives
+- **Agentic workflows** — how developers are wiring up multi-step AI pipelines that actually work in production
+- **MCP (Model Context Protocol)** — the emerging standard for connecting AI models to tools and data sources
+- **RAG and retrieval** — vector databases, embedding strategies, chunking techniques that affect real accuracy
+- **Prompt engineering** — patterns that hold up, patterns that don't, and why
+- **Fine-tuning and evals** — when it's worth it, what it costs, and how to measure it
 
-Posts are generated nightly by an automated pipeline:
+## How Posts Are Generated
 
-1. A topic is discovered via web search
-2. Multiple sources are researched and synthesised
-3. An AI writes a structured, factual post
-4. A pull request is opened for review
-5. Merging the PR deploys the post to this site
+Each post is researched and written by an AI pipeline that:
 
-The source code and every post are version-controlled in git — the repository *is* the content store.
+1. Discovers trending topics in the AI dev space via web search
+2. Researches multiple sources and filters for developer relevance
+3. Generates a structured, technically accurate post
+4. Opens a pull request — merging it deploys the post
 
-## Get Involved
+Everything is version-controlled in git. The repository is the content store. No CMS, no database.
 
-This site is open source. If you spot an error or want to suggest a topic, open an issue on GitHub.
+## Who This Is For
 
-Welcome aboard — there's a lot of planet to explore.
+If you write code and want to stay current on how AI is changing the way software gets built — without reading marketing copy — this feed is for you.
+
+New posts drop regularly. The signal-to-noise ratio is the whole point.
