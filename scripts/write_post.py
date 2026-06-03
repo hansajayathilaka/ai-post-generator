@@ -63,11 +63,11 @@ def generate_post_content(
 
 Today's date: {today}
 Target length: {gen['post_length_words']} words.
-Use these research sources and cite them inline as Markdown links where relevant:
+Use the research content below to inform the post. Cite sources inline as Markdown links where relevant. Do NOT include a Sources, References, or Further Reading section at the end.
 
 {research_bundle['combined_text']}
 
-Sources:
+Sources (for inline citations only):
 {source_urls}
 
 After the article, append a JSON block (between ```json and ```) containing:

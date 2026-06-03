@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-06-03-best-rag-tools-enterprise-ai-2026",
+    "title": "7 Best RAG Tools for Enterprise AI Applications in 2026",
+    "slug": "best-rag-tools-enterprise-ai-2026",
+    "created_at": "2026-06-03T06:19:51.786984+00:00",
+    "author": "AI Dev Digest",
+    "tags": [
+      "RAG",
+      "Generative AI",
+      "Enterprise Architecture",
+      "DevOps"
+    ],
+    "excerpt": "Discover the 7 essential tools powering agentic, high-precision, and compliance-native RAG architectures in modern enterprise environments.",
+    "hero_image": "assets/hero.jpg"
+  },
+  {
     "id": "2026-06-03-software-development-2026-tools-trends",
     "title": "Software Development in 2026: Navigating AI Agents, Cloud-Native Toolchains, and DevOps Automation",
     "slug": "software-development-2026-tools-trends",
