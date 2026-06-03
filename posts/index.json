@@ -1,11 +1,30 @@
 [
   {
+    "id": "2026-06-03-dora-2025-state-of-ai-assisted-software-development",
+    "title": "The 2025 DORA Report: Why AI is a Mirror, Not a Cure for Bad Architecture",
+    "slug": "dora-2025-state-of-ai-assisted-software-development",
+    "created_at": "2026-06-03T02:10:16.998461+00:00",
+    "author": "AI Dev Digest",
+    "tags": [
+      "dora-report",
+      "ai-assisted-development",
+      "platform-engineering",
+      "devops"
+    ],
+    "excerpt": "The inaugural 2025 DORA AI report reveals that AI-assisted development amplifies your team's existing strengths—and exposes its systemic weaknesses.",
+    "hero_image": "assets/hero.jpg"
+  },
+  {
     "id": "2026-06-02-hello-world",
     "title": "Welcome to AI Dev Digest: Your Feed for AI-Assisted Development",
     "slug": "hello-world",
     "created_at": "2026-06-02T02:00:00Z",
     "author": "AI Dev Digest",
-    "tags": ["meta", "AI tools", "developer productivity"],
+    "tags": [
+      "meta",
+      "AI tools",
+      "developer productivity"
+    ],
     "excerpt": "AI Dev Digest is a curated news feed for developers tracking the fast-moving world of AI-assisted coding — tools, frameworks, techniques, and what actually ships.",
     "hero_image": "assets/hero.jpg"
   }
