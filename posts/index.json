@@ -1,11 +1,30 @@
 [
   {
+    "id": "2026-06-03-state-of-llms-2025-inference-scaling-long-context",
+    "title": "The State of LLMs 2025: From Chat Boxes to Inference-Time Scaling",
+    "slug": "state-of-llms-2025-inference-scaling-long-context",
+    "created_at": "2026-06-03T03:16:55.543139+00:00",
+    "author": "AI Dev Digest",
+    "tags": [
+      "llm",
+      "software-engineering",
+      "rag",
+      "artificial-intelligence"
+    ],
+    "excerpt": "A technical breakdown of the major shifts in LLM engineering for 2025: the decline of classical RAG, the rise of inference-time scaling, and local tool-use architectures.",
+    "hero_image": "assets/hero.jpg"
+  },
+  {
     "id": "2026-06-02-hello-world",
     "title": "Welcome to AI Dev Digest: Your Feed for AI-Assisted Development",
     "slug": "hello-world",
     "created_at": "2026-06-02T02:00:00Z",
     "author": "AI Dev Digest",
-    "tags": ["meta", "AI tools", "developer productivity"],
+    "tags": [
+      "meta",
+      "AI tools",
+      "developer productivity"
+    ],
     "excerpt": "AI Dev Digest is a curated news feed for developers tracking the fast-moving world of AI-assisted coding — tools, frameworks, techniques, and what actually ships.",
     "hero_image": "assets/hero.jpg"
   }
