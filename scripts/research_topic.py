@@ -1,7 +1,12 @@
+from typing import TYPE_CHECKING
+
 from tavily import TavilyClient
 
+if TYPE_CHECKING:
+    from logger import RunLogger
 
-def research_topic(topic: str, config: dict) -> dict:
+
+def research_topic(topic: str, config: dict, logger: "RunLogger | None" = None) -> dict:
     client = TavilyClient()
     queries = [
         topic,
@@ -14,6 +19,7 @@ def research_topic(topic: str, config: dict) -> dict:
     snippets: list[str] = []
 
     for query in queries:
+        print(f"[research_topic] Query: {query}")
         try:
             results = client.search(query, search_depth="advanced", max_results=5)
             for item in results.get("results", []):
@@ -31,4 +37,8 @@ def research_topic(topic: str, config: dict) -> dict:
         combined_text = combined_text[:8000]
 
     print(f"[research_topic] Gathered {len(all_sources)} unique sources for: {topic}")
+
+    if logger:
+        logger.log_research(queries, all_sources, len(combined_text))
+
     return {"topic": topic, "sources": all_sources, "combined_text": combined_text}

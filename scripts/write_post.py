@@ -1,7 +1,12 @@
 import json
 import re
+from datetime import datetime, timezone
+from typing import TYPE_CHECKING
 
 from ai_client import get_ai_client
+
+if TYPE_CHECKING:
+    from logger import RunLogger
 
 
 def _extract_json_block(text: str) -> dict | None:
@@ -32,14 +37,22 @@ def _extract_metadata_via_ai(client, text: str) -> dict:
     return json.loads(raw)
 
 
-def generate_post_content(research_bundle: dict, config: dict) -> dict:
+def generate_post_content(
+    research_bundle: dict,
+    config: dict,
+    logger: "RunLogger | None" = None,
+) -> dict:
     gen = config["generation"]
     site = config["site"]
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     system_prompt = (
+        f"Today's date is {today}. "
         f"You are a {gen['tone']} writer specialising in {gen['niche']}. "
         f"Write in {site.get('language', 'en')}. "
-        "Target audience: software developers who follow the latest tools and techniques."
+        "Target audience: software developers who follow the latest tools and techniques. "
+        "When writing about recent developments, treat the research sources as ground truth for "
+        "current facts — do not rely on your training data for recency claims."
     )
 
     source_urls = "\n".join(
@@ -48,6 +61,7 @@ def generate_post_content(research_bundle: dict, config: dict) -> dict:
 
     user_prompt = f"""Write a blog post about: {research_bundle['topic']}
 
+Today's date: {today}
 Target length: {gen['post_length_words']} words.
 Use these research sources and cite them inline as Markdown links where relevant:
 
@@ -67,6 +81,9 @@ After the article, append a JSON block (between ```json and ```) containing:
 
     client = get_ai_client()
     response = client.generate(system_prompt, user_prompt)
+
+    if logger:
+        logger.log_generation(client.model_name, system_prompt, user_prompt, len(response))
 
     metadata = _extract_json_block(response)
     if not metadata:

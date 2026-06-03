@@ -1,5 +1,5 @@
 ---
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { marked } from "marked";
 import PostLayout from "../../layouts/PostLayout.astro";
@@ -13,8 +13,19 @@ const { id } = Astro.params;
 const meta = posts.find((p) => p.id === id)!;
 
 const postDir = resolve("posts", id);
-const markdown = readFileSync(resolve(postDir, "post.md"), "utf-8");
+let markdown = readFileSync(resolve(postDir, "post.md"), "utf-8");
+
+// Strip the Sources section appended by generate_post.py — rendered separately below
+markdown = markdown.replace(/\n---\n\n## Sources\n[\s\S]*$/, "").trimEnd();
 const html = marked(markdown) as string;
+
+// Load sources.json if present (AI-generated posts only)
+type Source = { title: string; url: string };
+let sources: Source[] = [];
+const sourcesPath = resolve(postDir, "sources.json");
+if (existsSync(sourcesPath)) {
+  sources = JSON.parse(readFileSync(sourcesPath, "utf-8")) as Source[];
+}
 ---
 
 <PostLayout
@@ -27,4 +38,62 @@ const html = marked(markdown) as string;
   postId={id}
 >
   <div set:html={html} />
+
+  {sources.length > 0 && (
+    <div class="sources">
+      <h2>Sources</h2>
+      <ol>
+        {sources.map((s) => (
+          <li>
+            <a href={s.url} target="_blank" rel="noopener noreferrer">
+              {s.title || s.url}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )}
 </PostLayout>
+
+<style>
+  .sources {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sources h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin: 0 0 0.875rem;
+  }
+
+  .sources ol {
+    padding-left: 1.25rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .sources li {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .sources a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    word-break: break-word;
+    transition: color 0.15s;
+  }
+
+  .sources a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
