@@ -1,4 +1,5 @@
 {
+  "$schema": "../../schemas/meta.schema.json",
   "id": "2026-06-03-dora-2025-state-of-ai-assisted-software-development",
   "title": "The 2025 DORA Report: Why AI is a Mirror, Not a Cure for Bad Architecture",
   "slug": "dora-2025-state-of-ai-assisted-software-development",

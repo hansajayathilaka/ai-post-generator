@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "config.schema.json",
+  "title": "Site Configuration",
+  "description": "Top-level config for the asd-site blog generator.",
+  "type": "object",
+  "required": ["site", "generation", "design"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "site": {
+      "type": "object",
+      "required": ["name", "description", "author", "url", "language"],
+      "additionalProperties": false,
+      "properties": {
+        "name":        { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "author":      { "type": "string", "minLength": 1 },
+        "url":         { "type": "string", "format": "uri" },
+        "language":    { "type": "string", "minLength": 2, "maxLength": 10 }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "required": ["niche", "topic_hints", "tone", "post_length_words"],
+      "additionalProperties": false,
+      "properties": {
+        "niche":                { "type": "string", "minLength": 1 },
+        "topic_hints":          { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "tone":                 { "type": "string", "minLength": 1 },
+        "post_length_words":    { "type": "integer", "minimum": 100, "maximum": 10000 },
+        "max_images":           { "type": "integer", "minimum": 0, "maximum": 20 },
+        "search_attempts":      { "type": "integer", "minimum": 1, "maximum": 20 },
+        "similarity_threshold": { "type": "number",  "minimum": 0, "maximum": 1 },
+        "gemini_model":         { "type": "string" },
+        "research_provider":    { "type": "string", "enum": ["gemini", "tavily"] },
+        "research_model":       { "type": "string" }
+      }
+    },
+    "design": {
+      "type": "object",
+      "required": ["color_palette", "font_family"],
+      "additionalProperties": false,
+      "properties": {
+        "color_palette": {
+          "type": "object",
+          "required": ["primary", "background", "text", "accent"],
+          "additionalProperties": false,
+          "properties": {
+            "primary":    { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+            "background": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+            "text":       { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+            "accent":     { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+          }
+        },
+        "font_family":   { "type": "string", "minLength": 1 },
+        "default_theme": { "type": "string" },
+        "themes":        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    }
+  }
+}

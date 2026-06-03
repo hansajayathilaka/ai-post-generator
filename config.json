@@ -1,4 +1,5 @@
 {
+  "$schema": "./schemas/config.schema.json",
   "site": {
     "name": "AI Dev Digest",
     "description": "The latest AI tools, frameworks, and techniques for developers.",

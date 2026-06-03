@@ -1,4 +1,5 @@
 anthropic
+jsonschema
 google-generativeai
 google-genai
 tavily-python

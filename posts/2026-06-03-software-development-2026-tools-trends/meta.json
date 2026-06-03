@@ -1,4 +1,5 @@
 {
+  "$schema": "../../schemas/meta.schema.json",
   "id": "2026-06-03-software-development-2026-tools-trends",
   "title": "Software Development in 2026: Navigating AI Agents, Cloud-Native Toolchains, and DevOps Automation",
   "slug": "software-development-2026-tools-trends",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../schemas/meta.schema.json",
   "id": "2026-06-02-hello-world",
   "title": "Welcome to AI Dev Digest: Your Feed for AI-Assisted Development",
   "slug": "hello-world",

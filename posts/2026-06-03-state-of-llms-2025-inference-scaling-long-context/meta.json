@@ -1,4 +1,5 @@
 {
+  "$schema": "../../schemas/meta.schema.json",
   "id": "2026-06-03-state-of-llms-2025-inference-scaling-long-context",
   "title": "The State of LLMs 2025: From Chat Boxes to Inference-Time Scaling",
   "slug": "state-of-llms-2025-inference-scaling-long-context",
