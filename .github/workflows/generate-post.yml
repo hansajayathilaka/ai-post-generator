@@ -1,5 +1,5 @@
 name: Generate Daily Post
-
+# Runs nightly and on manual dispatch to generate an AI post and open a PR
 on:
   schedule:
     - cron: '0 2 * * *'
