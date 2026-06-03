@@ -22,7 +22,7 @@
       "developer productivity with AI"
     ],
     "tone": "technical and concise, written for software developers",
-    "post_length_words": 700,
+    "post_length_words": 500,
     "max_images": 3,
     "search_attempts": 5,
     "similarity_threshold": 0.85,
