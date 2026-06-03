@@ -1,0 +1,96 @@
+{
+  "run_at": "2026-06-03T04:30:19.771448+00:00",
+  "topic": "Refonte Learning : Software Development in 2026: New Tools and Trends",
+  "topic_search": {
+    "query": "AI-assisted software development tools and frameworks: prompt engineering latest developments 2026",
+    "attempt": 1,
+    "topic": "Refonte Learning : Software Development in 2026: New Tools and Trends",
+    "candidates": [
+      {
+        "title": "Refonte Learning : Software Development in 2026: New Tools and Trends",
+        "url": "https://www.refontelearning.com/blog/software-development-in-2026-new-tools-and-trends"
+      },
+      {
+        "title": "Best Prompt Engineering Tools in 2026 (Reviewed) - Articles - Braintrust",
+        "url": "https://www.braintrust.dev/articles/best-prompt-engineering-tools-2026"
+      },
+      {
+        "title": "🤖 Best AI Tools for Developers in 2026: What Are Your Must-Have Tools? · community · Discussion #187143 · GitHub",
+        "url": "https://github.com/orgs/community/discussions/187143"
+      },
+      {
+        "title": "Top 12 AI Developer Tools in 2026: Coding Assistants, Agents & Security Tools",
+        "url": "https://checkmarx.com/learn/ai-security/top-12-ai-developer-tools-in-2026-for-security-coding-and-quality"
+      },
+      {
+        "title": "AI Tools for Developers 2026: More Than Just Coding Assistants | Cortex",
+        "url": "https://www.cortex.io/post/the-engineering-leaders-guide-to-ai-tools-for-developers-in-2026"
+      }
+    ]
+  },
+  "research": {
+    "queries": [
+      "Refonte Learning : Software Development in 2026: New Tools and Trends",
+      "how does Refonte Learning : Software Development in 2026: New Tools and Trends work",
+      "Refonte Learning : Software Development in 2026: New Tools and Trends latest developments"
+    ],
+    "sources_count": 9,
+    "sources": [
+      {
+        "title": "Software Development in 2026: New Tools and Trends",
+        "url": "https://www.refontelearning.com/blog/software-development-in-2026-new-tools-and-trends"
+      },
+      {
+        "title": "Top 5 Trends Shaping the Future",
+        "url": "https://www.refontelearning.com/blog/software-engineering-in-2026-top-5-trends-shaping-the-future"
+      },
+      {
+        "title": "Software Engineering in 2026: How AI and Automation Are Helping ...",
+        "url": "https://www.refontelearning.com/blog/software-engineering-in-2026-how-ai-and-automation-are-helping-developers-work-smarter"
+      },
+      {
+        "title": "Software Development Trends 2026: Enterprise Technology ...",
+        "url": "https://keyholesoftware.com/software-development-trends-2026"
+      },
+      {
+        "title": "The Software Development Trends Reshaping the Industry in 2026",
+        "url": "https://blogs.emorphis.com/the-software-development-trends"
+      },
+      {
+        "title": "Top 10 Software Development Trends of 2026 - YouTube",
+        "url": "https://www.youtube.com/watch?v=hV_MUDYeTAg"
+      },
+      {
+        "title": "Top software development trends 2026: AI, devSecOps, and cloud-native architectures",
+        "url": "https://innowise.com/blog/top-software-development-trends"
+      },
+      {
+        "title": "Top software development technologies 2026 - 10Pearls",
+        "url": "https://10pearls.com/blog/top-software-development-technologies"
+      },
+      {
+        "title": "What Tech Trends Should I Learn in 2026?",
+        "url": "https://www.codeplatoon.org/blog/tech-trends-to-learn-2026"
+      }
+    ],
+    "combined_text_chars": 8000
+  },
+  "generation": {
+    "model": "gemini-3.5-flash",
+    "system_prompt": "Today's date is 2026-06-03. You are a technical and concise, written for software developers writer specialising in AI-assisted software development tools and frameworks. Write in en. Target audience: software developers who follow the latest tools and techniques. When writing about recent developments, treat the research sources as ground truth for current facts — do not rely on your training data for recency claims.",
+    "user_prompt_chars": 9781,
+    "response_chars": 4433
+  },
+  "post": {
+    "title": "Software Development in 2026: Navigating AI Agents, Cloud-Native Toolchains, and DevOps Automation",
+    "slug": "software-development-2026-tools-trends",
+    "tags": [
+      "software-engineering",
+      "ai-development",
+      "cloud-native",
+      "devops",
+      "refonte-learning"
+    ],
+    "excerpt": "Explore how AI-augmented development, agentic workflows, and cloud-native toolchains are transforming the software engineering landscape in 2026."
+  }
+}
