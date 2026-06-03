@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-06-03-ai-velocity-paradox-devops-maturity-2026",
+    "title": "The AI Velocity Paradox: Why DevOps Maturity Is the Real Bottleneck in 2026",
+    "slug": "ai-velocity-paradox-devops-maturity-2026",
+    "created_at": "2026-06-03T06:50:35.837400+00:00",
+    "author": "AI Dev Digest",
+    "tags": [
+      "DevOps",
+      "AI Coding",
+      "Platform Engineering",
+      "Software Delivery"
+    ],
+    "excerpt": "Harness’s latest State of DevOps report reveals how high-speed AI code generation is causing deployment instability and developer burnout, forcing a shift to automated delivery pipelines.",
+    "hero_image": "assets/hero.jpg"
+  },
+  {
     "id": "2026-06-03-best-rag-tools-enterprise-ai-2026",
     "title": "7 Best RAG Tools for Enterprise AI Applications in 2026",
     "slug": "best-rag-tools-enterprise-ai-2026",
