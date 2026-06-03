@@ -39,7 +39,7 @@
       "accent": "#f59e0b"
     },
     "font_family": "system-ui, -apple-system, sans-serif",
-    "default_theme": "ocean",
+    "default_theme": "midnight",
     "themes": ["ocean", "forest", "midnight", "rose", "slate"]
   }
 }

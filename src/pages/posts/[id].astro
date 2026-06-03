@@ -39,9 +39,9 @@ if (existsSync(sourcesPath)) {
   {sources.length > 0 && (
     <div class="sources">
       <h2>Sources</h2>
-      <ol>
-        {sources.slice(0, 5).map((s) => (
-          <li>
+      <ol id="sources-list">
+        {sources.map((s, i) => (
+          <li class={i >= 5 ? "source-hidden" : ""}>
             <a href={s.url} target="_blank" rel="noopener noreferrer">
               {s.title || s.url}
             </a>
@@ -49,20 +49,9 @@ if (existsSync(sourcesPath)) {
         ))}
       </ol>
       {sources.length > 5 && (
-        <>
-          <ol id="sources-extra" class="sources-extra" start={6}>
-            {sources.slice(5).map((s) => (
-              <li>
-                <a href={s.url} target="_blank" rel="noopener noreferrer">
-                  {s.title || s.url}
-                </a>
-              </li>
-            ))}
-          </ol>
-          <button id="sources-toggle" class="sources-toggle">
-            See {sources.length - 5} more
-          </button>
-        </>
+        <button id="sources-toggle" class="sources-toggle">
+          See {sources.length - 5} more
+        </button>
       )}
     </div>
   )}
@@ -87,9 +76,8 @@ if (existsSync(sourcesPath)) {
   .sources ol {
     padding-left: 1.25rem;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    columns: 2;
+    gap: 1.5rem;
   }
 
   .sources li {
@@ -110,14 +98,8 @@ if (existsSync(sourcesPath)) {
     text-underline-offset: 2px;
   }
 
-  .sources-extra {
+  .sources li.source-hidden {
     display: none;
-  }
-
-  .sources-extra.open {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
   }
 
   .sources-toggle {
@@ -135,12 +117,14 @@ if (existsSync(sourcesPath)) {
 
 <script>
   const toggle = document.getElementById("sources-toggle");
-  const extra = document.getElementById("sources-extra");
-  if (toggle && extra) {
-    const moreCount = extra.querySelectorAll("li").length;
+  const list = document.getElementById("sources-list");
+  if (toggle && list) {
+    const hidden = list.querySelectorAll("li.source-hidden");
     toggle.addEventListener("click", () => {
-      const isOpen = extra.classList.toggle("open");
-      toggle.textContent = isOpen ? "See less" : `See ${moreCount} more`;
+      const isOpen = toggle.dataset.open === "true";
+      hidden.forEach((li) => li.classList.toggle("source-hidden", isOpen));
+      toggle.dataset.open = String(!isOpen);
+      toggle.textContent = isOpen ? `See ${hidden.length} more` : "See less";
     });
   }
 </script>

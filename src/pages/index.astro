@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
-import FeaturedCard from "../components/FeaturedCard.astro";
+import TagBadge from "../components/TagBadge.astro";
 import config from "../../config.json";
 import posts from "../../posts/index.json";
 
@@ -9,52 +9,435 @@ const sorted = [...posts].sort(
   (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
 );
 
-const [featured, ...rest] = sorted;
+// Up to 5 posts with hero images for the carousel
+const carouselPosts = sorted
+  .filter((p) => p.hero_image)
+  .slice(0, 5);
+
+const PAGE_SIZE = 9;
 ---
 
 <BaseLayout title={config.site.name} description={config.site.description}>
-  <section class="masthead">
-    <div class="masthead-inner">
-      <p class="masthead-kicker">AI-Powered Insights</p>
-      <h1 class="masthead-title">{config.site.name}</h1>
-      <p class="masthead-sub">{config.site.description}</p>
-    </div>
-  </section>
 
+  <!-- ── Carousel ──────────────────────────────────── -->
+  {carouselPosts.length > 0 ? (
+    <section class="carousel" id="carousel" aria-label="Featured posts">
+      <div class="carousel-track" id="carousel-track">
+        {carouselPosts.map((post, i) => {
+          const heroSrc = `/posts/${post.id}/${post.hero_image}`;
+          const date = new Date(post.created_at).toLocaleDateString("en-US", {
+            year: "numeric", month: "short", day: "numeric",
+          });
+          return (
+            <article class="slide" aria-hidden={i !== 0 ? "true" : "false"}>
+              <img src={heroSrc} alt={post.title} class="slide-bg" />
+              <div class="slide-overlay" />
+              <div class="slide-content">
+                <div class="slide-meta">
+                  {(post.tags ?? []).slice(0, 3).map((tag) => (
+                    <span class="slide-tag">{tag}</span>
+                  ))}
+                  <time class="slide-date">{date}</time>
+                </div>
+                <h2 class="slide-title">{post.title}</h2>
+                <p class="slide-excerpt">{post.excerpt}</p>
+                <a href={`/posts/${post.id}`} class="slide-cta">Read article →</a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {carouselPosts.length > 1 && (
+        <>
+          <button class="carousel-btn carousel-prev" id="carousel-prev" aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="carousel-btn carousel-next" id="carousel-next" aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+          <div class="carousel-dots" id="carousel-dots" role="tablist">
+            {carouselPosts.map((_, i) => (
+              <button
+                class={`dot${i === 0 ? " active" : ""}`}
+                role="tab"
+                aria-label={`Slide ${i + 1}`}
+                aria-selected={i === 0 ? "true" : "false"}
+                data-idx={i}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </section>
+  ) : (
+    <section class="masthead">
+      <div class="masthead-inner">
+        <p class="masthead-kicker">AI-Powered Insights</p>
+        <h1 class="masthead-title">{config.site.name}</h1>
+        <p class="masthead-sub">{config.site.description}</p>
+      </div>
+    </section>
+  )}
+
+  <!-- ── Posts grid ────────────────────────────────── -->
   <div class="page-body">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          id="search-input"
+          type="search"
+          placeholder="Search by title or tag…"
+          autocomplete="off"
+        />
+      </div>
+      <span id="result-count" class="result-count"></span>
+    </div>
+
     {sorted.length === 0 ? (
       <p class="empty">No posts yet — check back soon.</p>
     ) : (
-      <>
-        {featured && (
-          <section class="featured-section">
-            <FeaturedCard post={featured} />
-          </section>
-        )}
-
-        {rest.length > 0 && (
-          <section class="posts-section">
-            <h2 class="section-label">Latest Posts</h2>
-            <div class="post-grid">
-              {rest.map((post) => (
-                <PostCard
-                  id={post.id}
-                  title={post.title}
-                  excerpt={post.excerpt}
-                  created_at={post.created_at}
-                  tags={post.tags}
-                  hero_image={post.hero_image}
-                />
-              ))}
+      <section class="posts-section">
+        <div class="post-grid" id="post-grid">
+          {sorted.map((post) => (
+            <div
+              class="card-wrap"
+              data-title={post.title.toLowerCase()}
+              data-tags={(post.tags ?? []).join(" ").toLowerCase()}
+            >
+              <PostCard
+                id={post.id}
+                title={post.title}
+                excerpt={post.excerpt}
+                created_at={post.created_at}
+                tags={post.tags}
+                hero_image={post.hero_image}
+              />
             </div>
-          </section>
-        )}
-      </>
+          ))}
+        </div>
+
+        <p id="no-results" class="empty" hidden>No posts match your search.</p>
+        <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+      </section>
     )}
   </div>
 </BaseLayout>
 
+<!-- ── Carousel script ────────────────────────────── -->
+<script>
+  const track   = document.getElementById("carousel-track");
+  const prevBtn = document.getElementById("carousel-prev");
+  const nextBtn = document.getElementById("carousel-next");
+  const dotsEl  = document.getElementById("carousel-dots");
+
+  if (track) {
+    const slides = [...track.querySelectorAll<HTMLElement>(".slide")];
+    const dots   = dotsEl ? [...dotsEl.querySelectorAll<HTMLElement>(".dot")] : [];
+    const total  = slides.length;
+    let current  = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    function goTo(n: number) {
+      slides[current].setAttribute("aria-hidden", "true");
+      dots[current]?.classList.remove("active");
+      dots[current]?.setAttribute("aria-selected", "false");
+
+      current = (n + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+
+      slides[current].setAttribute("aria-hidden", "false");
+      dots[current]?.classList.add("active");
+      dots[current]?.setAttribute("aria-selected", "true");
+    }
+
+    function startAuto() {
+      timer = setInterval(() => goTo(current + 1), 5000);
+    }
+    function stopAuto() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    prevBtn?.addEventListener("click", () => { stopAuto(); goTo(current - 1); startAuto(); });
+    nextBtn?.addEventListener("click", () => { stopAuto(); goTo(current + 1); startAuto(); });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        stopAuto();
+        goTo(Number(dot.dataset.idx));
+        startAuto();
+      });
+    });
+
+    // Pause on hover
+    track.closest(".carousel")?.addEventListener("mouseenter", stopAuto);
+    track.closest(".carousel")?.addEventListener("mouseleave", startAuto);
+
+    // Touch/swipe
+    let touchStartX = 0;
+    track.addEventListener("touchstart", (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) { stopAuto(); goTo(current + (dx < 0 ? 1 : -1)); startAuto(); }
+    });
+
+    startAuto();
+  }
+</script>
+
+<!-- ── Grid + pagination script ───────────────────── -->
+<script define:vars={{ PAGE_SIZE }}>
+  const grid        = document.getElementById("post-grid");
+  const searchInput = document.getElementById("search-input");
+  const pagination  = document.getElementById("pagination");
+  const noResults   = document.getElementById("no-results");
+  const resultCount = document.getElementById("result-count");
+
+  const allCards = [...grid.querySelectorAll(".card-wrap")];
+  let filtered   = allCards;
+  let currentPage = 1;
+
+  function applyFilter() {
+    const q = searchInput.value.trim().toLowerCase();
+    filtered = q
+      ? allCards.filter((c) => c.dataset.title.includes(q) || c.dataset.tags.includes(q))
+      : allCards;
+    currentPage = 1;
+    render();
+  }
+
+  function render() {
+    const total      = filtered.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    currentPage      = Math.min(currentPage, totalPages);
+
+    const start   = (currentPage - 1) * PAGE_SIZE;
+    const pageSet = new Set(filtered.slice(start, start + PAGE_SIZE));
+    allCards.forEach((c) => { c.hidden = !pageSet.has(c); });
+
+    noResults.hidden = total > 0;
+    resultCount.textContent = searchInput.value.trim()
+      ? `${total} result${total !== 1 ? "s" : ""}` : "";
+
+    renderPagination(totalPages);
+  }
+
+  function renderPagination(totalPages) {
+    pagination.innerHTML = "";
+    if (totalPages <= 1) return;
+
+    const mkBtn = (label, page, disabled, active) => {
+      const btn = document.createElement("button");
+      btn.textContent = label;
+      btn.disabled = disabled;
+      if (active) btn.classList.add("active");
+      btn.addEventListener("click", () => { currentPage = page; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      return btn;
+    };
+
+    pagination.appendChild(mkBtn("← Prev", currentPage - 1, currentPage === 1, false));
+    for (const p of pageRange(currentPage, totalPages)) {
+      if (p === null) {
+        const sp = document.createElement("span"); sp.textContent = "…"; sp.className = "dots";
+        pagination.appendChild(sp);
+      } else {
+        pagination.appendChild(mkBtn(String(p), p, false, p === currentPage));
+      }
+    }
+    pagination.appendChild(mkBtn("Next →", currentPage + 1, currentPage === totalPages, false));
+  }
+
+  function pageRange(current, total) {
+    const pages = []; let last = null;
+    for (let i = 1; i <= total; i++) {
+      if (i === 1 || i === total || (i >= current - 2 && i <= current + 2)) {
+        if (last !== null && i - last > 1) pages.push(null);
+        pages.push(i); last = i;
+      }
+    }
+    return pages;
+  }
+
+  searchInput.addEventListener("input", applyFilter);
+  render();
+</script>
+
 <style>
+  /* ── Carousel ─────────────────────────────────────── */
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: clamp(380px, 55vw, 580px);
+    overflow: hidden;
+    background: #0f172a;
+  }
+
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.45) 55%,
+      rgba(0, 0, 0, 0.15) 100%
+    );
+  }
+
+  .slide-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 4rem;
+    max-width: 680px;
+    color: #fff;
+    gap: 0.75rem;
+  }
+
+  .slide-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .slide-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .slide-date {
+    font-size: 0.78rem;
+    opacity: 0.65;
+    margin-left: 0.25rem;
+  }
+
+  .slide-title {
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  .slide-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    opacity: 0.85;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .slide-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff;
+    color: #0f172a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.55rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: opacity 0.15s, transform 0.15s;
+    margin-top: 0.25rem;
+  }
+
+  .slide-cta:hover { opacity: 0.88; transform: translateX(2px); color: #0f172a; }
+
+  /* Arrows */
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s;
+    padding: 0;
+  }
+
+  .carousel-btn:hover { background: rgba(255, 255, 255, 0.28); }
+  .carousel-prev { left: 1.25rem; }
+  .carousel-next { right: 1.25rem; }
+
+  /* Dots */
+  .carousel-dots {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.45rem;
+    z-index: 10;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .dot.active {
+    background: #fff;
+    transform: scale(1.3);
+  }
+
+  /* ── Fallback masthead ────────────────────────────── */
   .masthead {
     background: linear-gradient(140deg, var(--color-hero-from), var(--color-hero-to));
     color: #fff;
@@ -62,10 +445,7 @@ const [featured, ...rest] = sorted;
     text-align: center;
   }
 
-  .masthead-inner {
-    max-width: 580px;
-    margin: 0 auto;
-  }
+  .masthead-inner { max-width: 580px; margin: 0 auto; }
 
   .masthead-kicker {
     font-size: 0.7rem;
@@ -84,52 +464,122 @@ const [featured, ...rest] = sorted;
     margin: 0 0 1rem;
   }
 
-  .masthead-sub {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    opacity: 0.85;
-    margin: 0;
-  }
+  .masthead-sub { font-size: 1.05rem; line-height: 1.7; opacity: 0.85; margin: 0; }
 
+  /* ── Page body ────────────────────────────────────── */
   .page-body {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 5rem;
+    padding: 2.5rem 1.5rem 5rem;
   }
 
-  .featured-section {
-    margin-bottom: 4rem;
-  }
-
-  .section-label {
+  /* ── Toolbar ──────────────────────────────────────── */
+  .toolbar {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin: 0 0 1.5rem;
+    margin-bottom: 2rem;
   }
 
-  .section-label::after {
-    content: "";
+  .search-wrap {
+    position: relative;
     flex: 1;
-    height: 1px;
-    background: var(--color-border);
+    max-width: 420px;
   }
 
+  .search-icon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 0.6rem 1rem 0.6rem 2.4rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+  }
+
+  #search-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+
+  .result-count {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  /* ── Grid ─────────────────────────────────────────── */
   .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
   }
 
+  /* ── Empty / no results ───────────────────────────── */
   .empty {
     text-align: center;
     color: var(--color-text-muted);
     font-size: 1.1rem;
     padding: 5rem 0;
+  }
+
+  /* ── Pagination ───────────────────────────────────── */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .pagination button {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .pagination button:hover:not(:disabled) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .pagination button.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .pagination button:disabled { opacity: 0.35; cursor: default; }
+
+  .pagination .dots {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    padding: 0 0.25rem;
+    user-select: none;
+  }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width: 640px) {
+    .slide-content { padding: 2rem 1.5rem; }
+    .carousel-btn { display: none; }
   }
 </style>

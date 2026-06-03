@@ -1,0 +1,229 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import config from "../../config.json";
+---
+
+<BaseLayout title={`About — ${config.site.name}`} description={`About ${config.site.name}`}>
+  <div class="about-hero">
+    <div class="about-hero-inner">
+      <p class="kicker">About</p>
+      <h1>{config.site.name}</h1>
+      <p class="tagline">{config.site.description}</p>
+    </div>
+  </div>
+
+  <div class="about-body">
+    <section class="about-section">
+      <h2>What is this?</h2>
+      <p>
+        <strong>{config.site.name}</strong> is a fully automated AI blog covering {config.generation.niche}.
+        Every post is researched, written, and published by an AI pipeline — no human editor required.
+        Topics include {config.generation.topic_hints.slice(0, 5).join(", ")}, and more.
+      </p>
+    </section>
+
+    <section class="about-section">
+      <h2>How it works</h2>
+      <ol class="how-list">
+        <li>
+          <span class="step-num">1</span>
+          <div>
+            <strong>Topic discovery</strong>
+            <p>A nightly GitHub Actions job uses Gemini to identify trending topics in the AI developer space that haven't been covered yet.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <div>
+            <strong>Research</strong>
+            <p>Gemini's built-in grounding capability searches the web and gathers up-to-date information about the chosen topic from authoritative sources.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <div>
+            <strong>Writing</strong>
+            <p>Gemini writes a {config.generation.post_length_words}-word post in a {config.generation.tone} style, using the research as ground truth.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num">4</span>
+          <div>
+            <strong>Publishing</strong>
+            <p>The generated post is committed to the repository via a pull request. Merging the PR triggers a deployment to Firebase Hosting.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="about-section">
+      <h2>Tech stack</h2>
+      <div class="stack-grid">
+        {[
+          { name: "Astro 5", desc: "Static site generation" },
+          { name: "Gemini API", desc: "Research & post writing" },
+          { name: "GitHub Actions", desc: "Nightly automation pipeline" },
+          { name: "Firebase Hosting", desc: "Hosting & deployment" },
+        ].map(({ name, desc }) => (
+          <div class="stack-card">
+            <span class="stack-name">{name}</span>
+            <span class="stack-desc">{desc}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>A note on accuracy</h2>
+      <p>
+        All content is AI-generated and may contain inaccuracies. Posts reflect information available at
+        the time of generation and are not reviewed by a human editor. Always verify critical information
+        from primary sources.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* ── Hero ─────────────────────────────────────────── */
+  .about-hero {
+    background: linear-gradient(140deg, var(--color-hero-from), var(--color-hero-to));
+    color: #fff;
+    padding: 4rem 1.5rem 3.5rem;
+    text-align: center;
+  }
+
+  .about-hero-inner {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin: 0 0 0.75rem;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  /* ── Body ─────────────────────────────────────────── */
+  .about-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+  }
+
+  .about-section p {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .about-section p + p {
+    margin-top: 0.75rem;
+  }
+
+  /* ── How it works list ────────────────────────────── */
+  .how-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .how-list li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+  }
+
+  .how-list strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .how-list p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* ── Stack grid ───────────────────────────────────── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stack-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .stack-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .stack-desc {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
+</style>

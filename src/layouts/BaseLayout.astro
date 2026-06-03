@@ -15,7 +15,7 @@ const { name: siteName, language } = config.site;
 ---
 
 <!DOCTYPE html>
-<html lang={language} data-theme={default_theme} style={`--font-family:${font_family}`}>
+<html lang={language} data-theme="light" style={`--font-family:${font_family}`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,6 +23,14 @@ const { name: siteName, language } = config.site;
     {description && <meta name="description" content={description} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <!-- Set theme before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = stored || preferred;
+      })();
+    </script>
   </head>
   <body>
     <Header siteName={siteName} />
