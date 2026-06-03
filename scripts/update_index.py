@@ -16,7 +16,8 @@ def update_index(posts_dir: str | Path, new_entry: dict) -> None:
 
     # Replace if same id already exists (idempotent re-run), otherwise append
     entries = [e for e in entries if e.get("id") != new_entry["id"]]
-    entries.append(new_entry)
+    entry = {k: v for k, v in new_entry.items() if k != "$schema"}
+    entries.append(entry)
     entries.sort(key=lambda e: e.get("created_at", ""), reverse=True)
 
     save_index(posts_dir, entries)
