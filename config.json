@@ -27,9 +27,9 @@
     "max_images": 3,
     "search_attempts": 5,
     "similarity_threshold": 0.85,
-    "gemini_model": "gemini-3-flash",
+    "gemini_model": "gemini-3.5-flash",
     "research_provider": "gemini",
-    "research_model": "gemini-3-flash"
+    "research_model": "gemini-3.5-flash"
   },
   "design": {
     "color_palette": {
