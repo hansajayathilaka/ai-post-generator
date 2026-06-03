@@ -9,18 +9,18 @@ from slugify import slugify
 # Allow importing sibling modules when run directly or via GitHub Actions
 sys.path.insert(0, str(Path(__file__).parent))
 
+from config import load_config
 from download_images import download_images
 from research_topic import research_topic
 from search_topic import TopicExhaustedError, find_unique_topic
-from update_index import update_index
+from update_index import load_index, update_index
 from write_post import generate_post_content
-
 
 def main() -> None:
     repo_root = Path(__file__).parent.parent
-    config = json.loads((repo_root / "config.json").read_text())
+    config = load_config()
     posts_dir = repo_root / "posts"
-    index = json.loads((posts_dir / "index.json").read_text())
+    index = load_index(posts_dir)
 
     try:
         topic, _context = find_unique_topic(config, index)

@@ -3,6 +3,8 @@ import os
 import anthropic
 import google.generativeai as genai
 
+from config import load_config
+
 
 class ClaudeClient:
     def __init__(self):
@@ -21,7 +23,8 @@ class ClaudeClient:
 class GeminiClient:
     def __init__(self):
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+        model_name = load_config().get("generation", {}).get("gemini_model", "gemini-2.5-flash")
+        self.model = genai.GenerativeModel(model_name)
 
     def generate(self, system_prompt: str, user_prompt: str) -> str:
         response = self.model.generate_content(f"{system_prompt}\n\n{user_prompt}")
