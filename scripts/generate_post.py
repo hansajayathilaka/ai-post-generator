@@ -17,18 +17,6 @@ from update_index import load_index, update_index
 from write_post import generate_post_content
 
 
-def _build_sources_section(sources: list[dict]) -> str:
-    lines = []
-    for i, s in enumerate(sources, 1):
-        url = s.get("url", "")
-        title = s.get("title", "") or url
-        if url:
-            lines.append(f"{i}. [{title}]({url})")
-    if not lines:
-        return ""
-    return "\n\n---\n\n## Sources\n\n" + "\n".join(lines) + "\n"
-
-
 def _write_post_files(
     post_dir: Path,
     assets_dir: Path,
@@ -39,10 +27,7 @@ def _write_post_files(
     config: dict,
 ) -> dict:
     """Write post.md, sources.json, downloaded images, and meta.json. Returns the meta dict."""
-    sources_section = _build_sources_section(research["sources"])
-    (post_dir / "post.md").write_text(
-        post_data["markdown_body"] + sources_section, encoding="utf-8"
-    )
+    (post_dir / "post.md").write_text(post_data["markdown_body"], encoding="utf-8")
 
     sources_json = [
         {"title": s.get("title", ""), "url": s.get("url", "")}
