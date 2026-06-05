@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-06-05-6-best-vector-databases-ai-apps-2026",
+    "title": "6 Best Vector Databases for AI Apps in 2026",
+    "slug": "6-best-vector-databases-ai-apps-2026",
+    "created_at": "2026-06-05T03:16:58.771619+00:00",
+    "author": "AI Dev Digest",
+    "tags": [
+      "vector-databases",
+      "ai-infrastructure",
+      "machine-learning",
+      "rag-stack"
+    ],
+    "excerpt": "Compare the best vector databases of 2026, highlighting technical updates like pgvectorscale's StreamingDiskANN, Qdrant's Gridstore, and Pinecone's Dedicated Read Nodes.",
+    "hero_image": "assets/hero.jpg"
+  },
+  {
     "id": "2026-06-03-top-12-ai-developer-tools-2026",
     "title": "Top 12 AI Developer Tools in 2026: Coding Assistants, Agents & Security Tools",
     "slug": "top-12-ai-developer-tools-2026",
