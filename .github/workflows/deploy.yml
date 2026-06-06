@@ -16,6 +16,16 @@ jobs:
           node-version: 22
           cache: npm
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Rebuild post index
+        run: python scripts/rebuild_index.py
+
       - name: Install dependencies
         run: npm ci
 

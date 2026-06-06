@@ -35,3 +35,6 @@ __pycache__/
 Thumbs.db
 
 public/posts/*
+
+# generated at deploy time from posts/*/meta.json
+posts/index.json
