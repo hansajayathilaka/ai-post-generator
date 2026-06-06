@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-06-05-6-best-vector-databases-ai-apps-2026",
+    "title": "6 Best Vector Databases for AI Apps in 2026",
+    "slug": "6-best-vector-databases-ai-apps-2026",
+    "created_at": "2026-06-05T03:16:58.771619+00:00",
+    "author": "AI Dev Digest",
+    "tags": [
+      "vector-databases",
+      "ai-infrastructure",
+      "machine-learning",
+      "rag-stack"
+    ],
+    "excerpt": "Compare the best vector databases of 2026, highlighting technical updates like pgvectorscale's StreamingDiskANN, Qdrant's Gridstore, and Pinecone's Dedicated Read Nodes.",
+    "hero_image": "assets/hero.jpg"
+  },
+  {
     "id": "2026-06-06-how-to-fine-tune-llms-2026-costs-gpus-code",
     "title": "How to Fine-Tune LLMs in 2026: Costs, GPUs, and Code",
     "slug": "how-to-fine-tune-llms-2026-costs-gpus-code",
