@@ -13,7 +13,7 @@ from download_images import download_images
 from logger import RunLogger
 from research_topic import research_topic
 from search_topic import TopicExhaustedError, find_unique_topic
-from update_index import load_index, update_index
+from update_index import load_index_from_posts
 from write_post import generate_post_content
 
 
@@ -78,7 +78,7 @@ def main() -> None:
     repo_root = Path(__file__).parent.parent
     config = load_config()
     posts_dir = repo_root / "posts"
-    index = load_index(posts_dir)
+    index = load_index_from_posts(posts_dir)
     logger = RunLogger()
 
     try:
@@ -98,7 +98,6 @@ def main() -> None:
     assets_dir.mkdir(parents=True, exist_ok=True)
 
     meta = _write_post_files(post_dir, assets_dir, post_id, safe_slug, post_data, research, config)
-    update_index(posts_dir, meta)
 
     logger.log_post(meta["title"], meta["slug"], meta["tags"], meta["excerpt"])
     logger.save(post_dir)
