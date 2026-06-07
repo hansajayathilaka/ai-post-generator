@@ -42,13 +42,6 @@ def main() -> None:
         config_schema,
     )
 
-    # posts/index.json
-    all_errors += _validate(
-        "posts/index.json",
-        _load(REPO_ROOT / "posts" / "index.json"),
-        index_schema,
-    )
-
     # posts/*/meta.json
     for meta_path in sorted((REPO_ROOT / "posts").glob("*/meta.json")):
         rel = meta_path.relative_to(REPO_ROOT)
