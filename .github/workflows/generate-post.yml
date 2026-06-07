@@ -29,6 +29,9 @@ jobs:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
         run: python scripts/generate_post.py
 
+      - name: Rebuild post index
+        run: python scripts/rebuild_index.py
+
       - name: Validate schemas
         run: python scripts/validate_schemas.py
 
