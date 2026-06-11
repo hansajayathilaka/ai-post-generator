@@ -1,0 +1,16 @@
+{
+  "$schema": "../../schemas/meta.schema.json",
+  "id": "2026-06-11-harness-ai-dlc-insights-cloud-cost-management",
+  "title": "Tracking GenAI ROI: Harness Launches AI DLC Insights and Cloud & AI Cost Management",
+  "slug": "harness-ai-dlc-insights-cloud-cost-management",
+  "created_at": "2026-06-11T03:14:28.741705+00:00",
+  "author": "AI Dev Digest",
+  "tags": [
+    "DevOps",
+    "AI-assisted-development",
+    "FinOps",
+    "Harness"
+  ],
+  "excerpt": "Harness bridges the AI measurement gap with two new products, enabling engineering teams to trace token spend from IDE prompts directly to production outcomes.",
+  "hero_image": "assets/hero.jpg"
+}
