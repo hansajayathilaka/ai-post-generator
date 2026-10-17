@@ -114,6 +114,22 @@ def research_topic(topic: str, config: dict, logger: "RunLogger | None" = None) 
     gen = config["generation"]
     provider = gen.get("research_provider", "tavily").lower()
 
+    if provider == "parallel":
+        from parallel_search import search_parallel
+
+        queries = [topic, f"{topic} technical details", f"{topic} latest developments"]
+        sources = search_parallel(
+            f"Research {topic} for a technical blog post. Find current, authoritative "
+            "sources covering how it works, technical details and recent developments.",
+            queries,
+        )
+        combined_text = "\n\n".join(s["content"] for s in sources if s["content"])[:8000]
+        if not combined_text.strip():
+            raise RuntimeError("Parallel returned no research excerpts; stopping generation")
+        if logger:
+            logger.log_research(queries, sources, len(combined_text))
+        return {"topic": topic, "sources": sources, "combined_text": combined_text}
+
     if provider == "gemini" and os.environ.get("GEMINI_API_KEY"):
         model_name = gen.get("research_model", "gemini-2.0-flash")
         print(f"[research_topic] Using Gemini Search Grounding ({model_name})")

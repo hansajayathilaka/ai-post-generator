@@ -33,7 +33,7 @@
         "search_attempts":      { "type": "integer", "minimum": 1, "maximum": 20 },
         "similarity_threshold": { "type": "number",  "minimum": 0, "maximum": 1 },
         "gemini_model":         { "type": "string" },
-        "research_provider":    { "type": "string", "enum": ["gemini", "tavily"] },
+        "research_provider":    { "type": "string", "enum": ["gemini", "tavily", "parallel"] },
         "research_model":       { "type": "string" }
       }
     },

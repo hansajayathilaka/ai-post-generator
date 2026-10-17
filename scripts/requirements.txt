@@ -3,6 +3,7 @@ jsonschema
 google-generativeai
 google-genai
 tavily-python
+mcp>=1.30,<2
 requests
 Pillow
 python-slugify
