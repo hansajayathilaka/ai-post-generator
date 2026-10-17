@@ -100,7 +100,14 @@ def find_unique_topic(
         query = f"{niche}: {hint} latest developments {current_year}"
         print(f"[search_topic] Query: {query}")
 
-        if use_gemini:
+        if provider == "parallel":
+            from parallel_search import search_parallel
+
+            candidates = search_parallel(
+                f"Find recent, specific articles about {niche} for a technical blog topic.",
+                [query],
+            )[:5]
+        elif use_gemini:
             print(f"[search_topic] Using Gemini search grounding ({model_name})")
             candidates = _search_with_gemini(query, model_name)
         else:

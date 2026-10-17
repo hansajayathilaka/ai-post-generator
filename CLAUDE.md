@@ -77,7 +77,11 @@ At least one AI provider key required:
 |---|---|
 | `ANTHROPIC_API_KEY` | Claude API (preferred if set) |
 | `GEMINI_API_KEY` | Gemini API (fallback if Claude not set) |
-| `TAVILY_API_KEY` | Web search for topic discovery + research |
+| `TAVILY_API_KEY` | Web search when using Tavily (including Gemini's existing fallback) |
+
+`generation.research_provider` also accepts `"parallel"` for anonymous Parallel
+Search MCP topic discovery and research. No search API key is needed for that
+selection; post writing still needs an AI provider key. See README.md for setup.
 
 ## Task and Progress Files
 
